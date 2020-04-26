@@ -18,13 +18,13 @@ class KotlinPlatformTypesTest : StringSpec() {
 
         "using a safe cast, value is not null" {
             val nullThing = javaCode.listOfStrings()[0] // entry [0] is not null
-            val myNullableString: String? = nullThing as? String
+            val myNullableString: String? = nullThing
             myNullableString shouldBe "alpha"
         }
 
         "using a safe cast, value is null" {
             val nullThing = javaCode.listOfStrings()[1] // entry [1] is null
-            val myNullableString: String? = nullThing as? String
+            val myNullableString: String? = nullThing
             myNullableString shouldBe null
         }
     }
