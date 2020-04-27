@@ -316,6 +316,24 @@ class KotlinMapTest : StringSpec() {
             )
         }
 
+        "it calls replaceAll with a closure" {
+            mutableNumbers.replaceAll { key, value ->
+                if (key %2 == 0) {
+                    "even ${value}"
+                } else {
+                    "odd ${value}"
+                }
+            }
+            mutableNumbers shouldBe mutableMapOf(
+                    1 to "odd one",
+                    2 to "even two",
+                    3 to "odd three",
+                    4 to "even four",
+                    5 to "odd five"
+            )
+
+        }
+
     }
 }
 
