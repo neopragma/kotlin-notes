@@ -325,13 +325,58 @@ class KotlinMapTest : StringSpec() {
                 }
             }
             mutableNumbers shouldBe mutableMapOf(
-                    1 to "odd one",
-                    2 to "even two",
-                    3 to "odd three",
-                    4 to "even four",
-                    5 to "odd five"
+                    6 to "even six",
+                    7 to "odd seven",
+                    8 to "even eight"
             )
+        }
 
+        "it uses computeIfAbsent to modify values in a map" {
+            for (key in 2..8) {
+                mutableNumbers.computeIfAbsent(key) { theKey ->
+                    if (theKey % 2 == 0) "${theKey} is even" else "${theKey} is odd"
+                }
+            }
+            mutableNumbers shouldBe mutableMapOf(
+                    6 to "six",
+                    7 to "seven",
+                    8 to "eight",
+                    2 to "2 is even",
+                    3 to "3 is odd",
+                    4 to "4 is even",
+                    5 to "5 is odd"
+            )
+        }
+
+        "it uses computeIfPresent to modify values in a map" {
+            for (key in 2..8) {
+                mutableNumbers.computeIfPresent(key) { theKey, value ->
+                    if (theKey % 2 == 0) "${value} is even" else "${value} is odd"
+                }
+            }
+            mutableNumbers shouldBe mutableMapOf(
+                    6 to "six is even",
+                    7 to "seven is odd",
+                    8 to "eight is even"
+            )
+        }
+
+        "it merges three maps using mapValues" {
+            val mergedMap = (mutableNumbers.asSequence() + numbers.asSequence() + mapOf(7 to "siete").asSequence())
+                    .distinct()
+                    .groupBy({ it.key }, { it.value })
+                    .mapValues { (_, values) -> values.joinToString(",") }
+                    .toSortedMap()
+            mergedMap shouldBe mutableMapOf(
+                    1 to "one",
+                    2 to "two",
+                    3 to "three",
+                    4 to "four",
+                    5 to "five",
+                    6 to "six",
+                    7 to "seven,siete",
+                    8 to "eight"
+            )
         }
 
     }
