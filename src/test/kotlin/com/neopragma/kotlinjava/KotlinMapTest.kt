@@ -390,6 +390,35 @@ class KotlinMapTest : StringSpec() {
 //                    5 to "five"
 //            )
 //        }
+
+        "it uses a function to provide a default value for a map" {
+            mutableNumbers.getOrElse(key = 2, defaultValue = { "unknown" }) shouldBe "unknown"
+        }
+
+        "it uses 'set' to add a key-value pair to a mutable map" {
+            mutableNumbers.set(0, "zero")
+            mutableNumbers.toSortedMap() shouldBe mutableMapOf(
+                0 to "zero",
+                6 to "six",
+                7 to "seven",
+                8 to "eight"
+            )
+        }
+
+        "it uses withDefault to set a default value for keys not present in the map" {
+            mutableNumbers = mutableMapOf(
+                    1 to "one",
+                    2 to "two",
+                    3 to "three").withDefault { "unknown" }
+            mutableNumbers.getValue(0) shouldBe "unknown"   // <- only works with getValue(key)
+            mutableNumbers.get(0) shouldBe null
+        }
+
+        "it" {
+            mutableNumbers.any { "x" }
+        }
+
+
     }
 }
 
