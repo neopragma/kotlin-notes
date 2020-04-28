@@ -35,6 +35,10 @@ class KotlinMapTest : StringSpec() {
             numbers.shouldNotBeEmpty()
         }
 
+        "it uses 'any' to see if the map has any contents" {
+            numbers.any() shouldBe true
+        }
+
         "it looks up a value by its key using array index notation" {
             numbers[3] shouldBe "three"
         }
@@ -413,12 +417,6 @@ class KotlinMapTest : StringSpec() {
             mutableNumbers.getValue(0) shouldBe "unknown"   // <- only works with getValue(key)
             mutableNumbers.get(0) shouldBe null
         }
-
-        "it" {
-            mutableNumbers.any { "x" }
-        }
-
-
     }
 }
 
