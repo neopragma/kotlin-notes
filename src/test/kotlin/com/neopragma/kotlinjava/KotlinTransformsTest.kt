@@ -3,7 +3,7 @@ package com.neopragma.kotlinjava
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
-class KotlinSequencesTest : StringSpec() {
+class KotlinTransformsTest : StringSpec() {
 
     init {
         "transform list using Sequence" {
@@ -19,6 +19,7 @@ class KotlinSequencesTest : StringSpec() {
             }
         }
 
+        // This approach is based on work of Ken Kousen
 //        "generate Fibonacci series using tail recursion" {
 //            @JvmOverloads
 //            var count = 1
@@ -42,6 +43,7 @@ class KotlinSequencesTest : StringSpec() {
 //          }
 //        }
 
+        // This approach is based on work of Marcin Moskala @marcinmoskala
         "generate Fibonacci series using fold" {
             var fibonacci = listOf<Int>(0, 1)
             for (n in 2..10) {
