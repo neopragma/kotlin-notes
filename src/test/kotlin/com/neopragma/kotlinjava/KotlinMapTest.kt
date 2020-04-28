@@ -1,6 +1,5 @@
 package com.neopragma.kotlinjava
 
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.test.TestCase
 import io.kotest.matchers.maps.*
@@ -168,8 +167,8 @@ class KotlinMapTest : StringSpec() {
 
         "it uses plusAssign to add all entries from an array of pairs into a map" {
             val arrayOfPairs: Array<Pair<Int, String>> = arrayOf(
-                    Pair<Int, String>(12, "twelve"),
-                    Pair<Int, String>(13, "thirteen")
+                    Pair(12, "twelve"),
+                    Pair(13, "thirteen")
             )
             mutableNumbers.plusAssign(arrayOfPairs)
 //            mutableNumbers += arrayOfPairs // <= documented to work, but doesn't compile
@@ -318,7 +317,7 @@ class KotlinMapTest : StringSpec() {
 
         "it calls replaceAll with a closure" {
             mutableNumbers.replaceAll { key, value ->
-                if (key %2 == 0) {
+                if (key % 2 == 0) {
                     "even ${value}"
                 } else {
                     "odd ${value}"
@@ -361,13 +360,13 @@ class KotlinMapTest : StringSpec() {
             )
         }
 
-        "it merges three maps using mapValues" {
-            val mergedMap = (mutableNumbers.asSequence() + numbers.asSequence() + mapOf(7 to "siete").asSequence())
+        "it creates a union of 3 maps" {
+            val unionOfMaps = (mutableNumbers.asSequence() + numbers.asSequence() + mapOf(7 to "siete").asSequence())
                     .distinct()
                     .groupBy({ it.key }, { it.value })
                     .mapValues { (_, values) -> values.joinToString(",") }
                     .toSortedMap()
-            mergedMap shouldBe mutableMapOf(
+            unionOfMaps shouldBe mutableMapOf(
                     1 to "one",
                     2 to "two",
                     3 to "three",
@@ -379,6 +378,18 @@ class KotlinMapTest : StringSpec() {
             )
         }
 
+// Don't understand why this doesn't work. The String values come out without quotation marks.
+// That is: (3 to "three") doesn't equal (3 to three).
+//        "it creates an intersection of 2 maps" {
+//            val moreNumbers: MutableMap<Int, String> = mutableMapOf(3 to "three", 5 to "five", 7 to "seven")
+//            val intersectionOfMaps = numbers.flatMap { entry ->
+//                moreNumbers.filterKeys { it == entry.key }.map { entry.key to entry.value }
+//            }
+//            intersectionOfMaps shouldBe mutableMapOf(
+//                    3 to "three",
+//                    5 to "five"
+//            )
+//        }
     }
 }
 
