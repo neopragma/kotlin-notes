@@ -1,6 +1,6 @@
 package com.neopragma.kotlinjava;
 
-public class JavaClient {
+public class JavaCodeCallingKotlinFunctions {
 
     public String[] callKotlinFunctionWithRegularArguments(String arg0, String arg1, String arg2) {
         return KotlinFunctions.callMeWithRegularArguments("alpha", "beta", "gamma");

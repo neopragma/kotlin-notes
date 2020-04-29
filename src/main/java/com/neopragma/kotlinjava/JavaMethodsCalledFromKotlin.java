@@ -1,6 +1,6 @@
 package com.neopragma.kotlinjava;
 
-public class JavaArgumentsSample {
+public class JavaMethodsCalledFromKotlin {
 
     public String[] callMeWithRegularArguments(String arg0, String arg1, String arg2) {
         return new String[] { arg0, arg1, arg2 };

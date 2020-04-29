@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class JavaClientTest {
 
-    private static JavaClient javaClient;
+    private static JavaCodeCallingKotlinFunctions javaClient;
 
     @BeforeAll
     static void initializeJavaClient() {
-        javaClient = new JavaClient();
+        javaClient = new JavaCodeCallingKotlinFunctions();
     }
 
     @Test

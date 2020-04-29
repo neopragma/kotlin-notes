@@ -73,7 +73,7 @@ class KotlinTransformsTest : StringSpec() {
         // Based on a Scala example found at
         // URL https://coderwall.com/p/4l73-a/scala-fold-foldleft-and-foldright
         "use 'foldRight' to format a String" {
-            class Person(val name: String, val birthYear: Int, val sex: Sex) {}
+            data class Person(val name: String, val birthYear: Int, val sex: Sex) {}
             val people = listOf(
                     Person("Stan Smith", 1984, Sex.MALE),
                     Person("Francine Smith", 1988, Sex.FEMALE),
@@ -105,6 +105,7 @@ class KotlinTransformsTest : StringSpec() {
                 1 -> b
                 else -> fibonacci(n - 1, b, a + b)
             }
+
     enum class Sex {
         FEMALE, MALE, UNDISCLOSED
     }

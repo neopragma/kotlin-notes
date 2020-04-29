@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 
 class KotlinArgumentsTest : StringSpec() {
 
-    var javaCode: JavaArgumentsSample = JavaArgumentsSample()
+    var javaCode: JavaMethodsCalledFromKotlin = JavaMethodsCalledFromKotlin()
 
     init {
         "call Java method with regular arguments" {
