@@ -55,6 +55,47 @@ class KotlinTransformsTest : StringSpec() {
             fibonacci shouldBe listOf(0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55)
         }
 
+        "use 'fold' to sum the integers in a list" {
+            // 1st pass: sum, element = 0, 86
+            // 2nd pass: sum, element = 86, 45
+            // 3rd pass: sum, element = 131, -12
+            // 4th pass: sum, element = 119, 9
+            // 5th pass: sum, element = 128, 28
+            // 6th pass: sum, element = 156, -70
+            // result = 86
+            val numbers = listOf(86, 45, -12, 9, 28, -70)
+            val total = numbers.fold(0) { sum, element ->
+                sum + element
+            }
+            total shouldBe 86
+        }
+
+        // Based on a Scala example found at
+        // URL https://coderwall.com/p/4l73-a/scala-fold-foldleft-and-foldright
+        "use 'foldRight' to format a String" {
+            class Person(val name: String, val birthYear: Int, val sex: Sex) {}
+            val people = listOf(
+                    Person("Stan Smith", 1984, Sex.MALE),
+                    Person("Francine Smith", 1988, Sex.FEMALE),
+                    Person("Roger Smith", 1763, Sex.UNDISCLOSED)
+            )
+
+            var formattedStrings = people.foldRight(listOf<String>()) { person, formattedStrings ->
+                val title =
+                    when (person.sex) {
+                        Sex.FEMALE -> "Ms. "
+                        Sex.MALE -> "Mr. "
+                        else -> ""
+                    }
+                formattedStrings.plus("${title}${person.name}, born ${person.birthYear}")
+            }
+
+            formattedStrings.sorted() shouldBe listOf(
+                    "Mr. Stan Smith, born 1984",
+                    "Ms. Francine Smith, born 1988",
+                    "Roger Smith, born 1763"
+            )
+        }
 
     }
 
@@ -64,4 +105,8 @@ class KotlinTransformsTest : StringSpec() {
                 1 -> b
                 else -> fibonacci(n - 1, b, a + b)
             }
+    enum class Sex {
+        FEMALE, MALE, UNDISCLOSED
+    }
+
 }
